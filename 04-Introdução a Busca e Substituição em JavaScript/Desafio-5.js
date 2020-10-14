@@ -38,3 +38,53 @@ Para tornar itálico um pedaço de texto no HTML, você deve iniciar este pedaç
 */
 
 //Código do desafio:
+let linhasHTML = [];
+let linha = "";
+let tags = [
+  { "tag": "_", "tagIni": "<i>", "tagFim": "</i>" },
+  { "tag": "*", "tagIni": "<b>", "tagFim": "</b>" }
+];
+
+let indice = 0;
+while(indice < 60){
+  linha = gets();
+  linha = linha.substring(0,50);
+  linhasHTML.push(linha);
+  indice++;
+}
+
+let novasLinhas = linhasHTML.map(linha => {
+  for(tag of tags){
+    if(linha.includes(tag.tag)){
+      let ocorrencia = linha.split(tag.tag).length-1;
+      let posicoes = [];
+      let posicaoInicial = 0;
+      
+      if(ocorrencia % 2 !== 0){
+        ocorrencia--;
+      }
+      
+      for(let cont=0; cont<ocorrencia; cont++){
+        posicoes.push(linha.indexOf(tag.tag, posicaoInicial));
+        posicaoInicial = posicoes[cont] + 1;
+      }
+      
+      let troca = [];
+      for(let ind=0; ind<posicoes.length; ind+=2){
+        troca.push(linha.substring(posicoes[ind], posicoes[ind+1]+1));
+        troca.push(linha.substring(posicoes[ind]+1, posicoes[ind+1]));
+      }
+
+      for(let ind=0; ind<troca.length; ind+=2){
+        let novaPalavra = tag.tagIni + troca[ind+1] + tag.tagFim;
+        linha = linha.replace(troca[ind], novaPalavra);
+      }
+    }
+  }
+
+  return linha;
+});
+
+for(linha of novasLinhas){
+  console.log(linha);
+}
