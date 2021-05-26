@@ -67,21 +67,11 @@ let dadosOrdenados = dadosAlunos.sort((a, b) => {
       }
       else{
         if(a.cor === b.cor && a.tamanho === b.tamanho){
-          if(a.nome > b.nome){
-            return 1;
-          }
-          else{
-            return -1;
-          }
-        }
-        else{
-          return -1;
+          if(a.nome > b.nome) return 1;
         }
       }
     }
-    else{
-      return -1;
-    }
+    return -1;
   }
 });
 
